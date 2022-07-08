@@ -145,6 +145,13 @@ There are four different color modes supported: 2, 16, 256, and 16M (truecolor).
 .. image:: doc/images/s80_256.png
 
 
+.. code-block:: shell-session
+
+  > ui sphere.png -w 80 -c 16
+
+.. image:: doc/images/s80_16.png
+
+
 
 You can invert the input image with ``-i, --invert``. This is primarily useful for the 2-color mode:
 
