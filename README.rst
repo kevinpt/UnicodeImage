@@ -19,7 +19,7 @@ This utility requires either Python 3, numpy, and the Pillow image processing li
 Installation
 ------------
 
-This package is a Python 3 program that uses a `pyproject.toml` configuration file. It can be installed with `pip` or any other program that understands PEP518 pyproject files.
+This package is a Python 3 program that uses a ``pyproject.toml`` configuration file. It can be installed with ``pip`` or any other program that understands PEP518 pyproject files.
 
 .. code-block:: shell-session
 
@@ -41,7 +41,7 @@ After installation UnicodeImage is onvoked from the commandline with the `ui` pr
 
 .. code-block:: shell-session
 
-  $ ui -h
+  > ui -h
 
   usage: ui [-h] [-c {2,16,256,16M}] [-w WIDTH] [-b {1x1,1x2,2x2}] [-g] [-i] [--cp437] [-v] file
 
@@ -69,6 +69,26 @@ Block formats
 
 There are three pixel block formats available: 2x2, 1x2, and 1x1. 2x2 is the default to maximuze horizontal resolution. 1x2 splits a cell into only two pixels but they will be closer to square dimensions. 1x1 generates low res output for comparison.
 
+.. code-block:: shell-session
+
+  > ui sphere.png -w 60 -b 2x2
+
+.. image:: doc/images/s60_256_2x2.png
+
+
+.. code-block:: shell-session
+
+  > ui sphere.png -w 60 -b 1x2
+
+.. image:: doc/images/s60_256_1x2.png
+
+
+.. code-block:: shell-session
+
+  > ui sphere.png -w 60 -b 1x1
+
+.. image:: doc/images/s60_256_1x1.png
+
 
 The 2x2 block format is able to improve edge detail and gradients along the X-axis:
 
@@ -77,7 +97,7 @@ The 2x2 block format is able to improve edge detail and gradients along the X-ax
 Width
 ~~~~~
 
-You control the size of the generated output with the `-w, --width` parameter. It is the number of characters wide the output will be. The number of lines is calculated based on the width and the selected block format. If this option is omitted the width is set to match the current terminal size.
+You control the size of the generated output with the ``-w, --width`` parameter. It is the number of characters wide the output will be. The number of lines is calculated based on the width and the selected block format. If this option is omitted the width is set to match the current terminal size.
 
 .. code-block:: shell-session
 
@@ -102,17 +122,17 @@ You control the size of the generated output with the `-w, --width` parameter. I
 Text encoding
 ~~~~~~~~~~~~~
 
-The output of the UnicodeImage is Unicode text in whatever encoding is your python system default. This will be UTF-8 on most Linux systems. If you use 1x2, 1x1 blocks, or 2x2 blocks with the `--cp437` option you will get characters limited to the block symbols available in CP437. Note, however that this does not change the encoding of the output and the escape codes used for the 16-color mode do not suppress bright background colors which isn't supported by traditional PC ANSI output.
+The output of the UnicodeImage is Unicode text in whatever encoding is your python system default. This will be UTF-8 on most Linux systems. If you use 1x2, 1x1 blocks, or 2x2 blocks with the ``--cp437`` option you will get characters limited to the block symbols available in CP437. Note, however that this does not change the encoding of the output and the escape codes used for the 16-color mode do not suppress bright background colors which isn't supported by traditional PC ANSI output.
 
 Colors
 ~~~~~~
 There are four different color modes supported: 2, 16, 256, and 16M (truecolor). 256-color is the default as it balances image quality with the size of the generated text. With continuous tone images 16M mode will generally output a new escape code for every character cell leading to approximately 2x larger output data than 256-color.
 
-You can invert the input image with `-i, --invert`. This is primarily useful for the 2-color mode.
+You can invert the input image with ``-i, --invert``. This is primarily useful for the 2-color mode.
 
-================================== ==================================
-.. image:: doc/images/s256_100.png .. image:: doc/images/s256_100.png
-================================== ==================================
+================================= ===================================
+.. image:: doc/images/s80_2.png   .. image:: doc/images/s80_2_inv.png
+================================= ===================================
 
 
 
