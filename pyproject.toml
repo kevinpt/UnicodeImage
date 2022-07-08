@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "UnicodeImage"
+description = "Convert images to ANSI colored text with Unicode drawing characters"
+readme = "README.rst"
+keywords = ["image", "Unicode", "ANSI", "colored", "text"]
+license = {text = "MIT"}
+classifiers = [
+  "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+  "Topic :: Text Processing :: General",
+  "Topic :: Utilities",
+  "Programming Language :: Python :: 3",
+  "Development Status :: 5 - Production/Stable"
+]
+dependencies = [
+  "pillow >= 9.2.0",
+  "numpy"
+]
+dynamic = ["version"]
+
+[project.scripts]
+  ui = "unicode_image.ui:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "unicode_image.ui.VERSION"}
