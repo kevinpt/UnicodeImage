@@ -37,7 +37,7 @@ You can access the Git repository from `Github <https://github.com/kevinpt/Unico
 Usage
 -----
 
-After installation UnicodeImage is onvoked from the commandline with the `ui` program.
+After installation UnicodeImage is invoked from the commandline with the ``ui`` program.
 
 .. code-block:: shell-session
 
@@ -62,12 +62,14 @@ After installation UnicodeImage is onvoked from the commandline with the `ui` pr
     -v, --version         show program's version number and exit
 
 
-The input image file can be any format supported by the Python Pillow library.
+The input image file can be any format supported by the Python Pillow library. Output is text that can be redirected to a file if needed.
 
 Block formats
 ~~~~~~~~~~~~~
 
 There are three pixel block formats available: 2x2, 1x2, and 1x1. 2x2 is the default to maximuze horizontal resolution. 1x2 splits a cell into only two pixels but they will be closer to square dimensions. 1x1 generates low res output for comparison.
+
+With the 2x2 format there could be from one to four colors in a character cell. The ANSI color encoding only supports a foreground and background color per cell. When there are three or four distinct colors in a cell it is modified to reduce the color count to two. With truecolor (16M) output, a median cut is performed to select two optimal substitute colors. For 16 and 256 color output, two distinct colors in the block are chosen to be foreground and background and the others are reassigned to the closest of the two. This introduces some artifacts but they are generally infrequent enough to not be distracting.
 
 .. code-block:: shell-session
 
@@ -122,16 +124,32 @@ You control the size of the generated output with the ``-w, --width`` parameter.
 Text encoding
 ~~~~~~~~~~~~~
 
-The output of the UnicodeImage is Unicode text in whatever encoding is your python system default. This will be UTF-8 on most Linux systems. If you use 1x2, 1x1 blocks, or 2x2 blocks with the ``--cp437`` option you will get characters limited to the block symbols available in CP437. Note, however that this does not change the encoding of the output and the escape codes used for the 16-color mode do not suppress bright background colors which isn't supported by traditional PC ANSI output.
+The output data is Unicode text in whatever encoding is your Python system default. This will be UTF-8 on most Linux systems. If you use 1x2, 1x1 blocks, or 2x2 blocks with the ``--cp437`` option you will get characters limited to the block symbols available in CP437. Note, however that this does not change the encoding of the output and the escape codes used for the 16-color mode do not suppress bright background colors which isn't supported by traditional PC ANSI output.
 
 Colors
 ~~~~~~
-There are four different color modes supported: 2, 16, 256, and 16M (truecolor). 256-color is the default as it balances image quality with the size of the generated text. With continuous tone images 16M mode will generally output a new escape code for every character cell leading to approximately 2x larger output data than 256-color.
+
+There are four different color modes supported: 2, 16, 256, and 16M (truecolor). 256-color is the default as it balances image quality with the size of the generated text. With continuous tone images, 16M mode will generally output a new escape code for every character cell leading to approximately 2x larger output data than 256-color.
+
+.. code-block:: shell-session
+
+  > ui sphere.png -w 80 -c 16M
+
+.. image:: doc/images/s80_16M.png
+
+
+.. code-block:: shell-session
+
+  > ui sphere.png -w 80 -c 256
+
+.. image:: doc/images/s80_256.png
+
+
 
 You can invert the input image with ``-i, --invert``. This is primarily useful for the 2-color mode.
 
 ================================= ===================================
-.. image:: doc/images/s80_2.png   .. image:: doc/images/s80_2_inv.png
+.. image:: doc/images/s60_2.png   .. image:: doc/images/s60_2_inv.png
 ================================= ===================================
 
 
